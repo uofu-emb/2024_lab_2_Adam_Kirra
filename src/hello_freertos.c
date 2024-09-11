@@ -13,7 +13,7 @@
 
 int counter;
 bool led_is_on;
-
+//comment
 void blink_task(__unused void *params)
 {
     counter = 0;
