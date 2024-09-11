@@ -35,5 +35,8 @@
     "raspberry-pi-pico.cmakeAutoConfigure": true,
     "raspberry-pi-pico.useCmakeTools": false,
     "raspberry-pi-pico.cmakePath": "cmake",
-    "raspberry-pi-pico.ninjaPath": "ninja"
+    "raspberry-pi-pico.ninjaPath": "ninja",
+    "files.associations": {
+        "stdio.h": "c"
+    }
 }
