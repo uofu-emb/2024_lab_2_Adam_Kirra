@@ -5,8 +5,11 @@
             "label": "Compile Project",
             "type": "process",
             "isBuildCommand": true,
-            "command": "ninja",
-            "args": ["-C", "${workspaceFolder}/build"],
+            "command": "${userHome}/.pico-sdk/ninja/v1.12.1/ninja",
+            "args": [
+                "-C",
+                "${workspaceFolder}/build"
+            ],
             "group": "build",
             "presentation": {
                 "reveal": "always",
@@ -14,7 +17,7 @@
             },
             "problemMatcher": "$gcc",
             "windows": {
-                "command": "ninja.exe"
+                "command": "${env:USERPROFILE}/.pico-sdk/ninja/v1.12.1/ninja.exe"
             }
         },
         {
@@ -23,7 +26,7 @@
             "command": "${env:HOME}/.pico-sdk/picotool/2.0.0/picotool/picotool",
             "args": [
                 "load",
-                "${command:raspberry-pi-pico.launchTargetPath}",
+                "${command:cmake.launchTargetPath}",
                 "-fx"
             ],
             "presentation": {
@@ -38,7 +41,7 @@
         {
             "label": "Flash",
             "type": "process",
-            "command": "${userHome}/.pico-sdk/openocd/0.12.0+dev/openocd.exe",
+            "command": "openocd",
             "args": [
                 "-s",
                 "${userHome}/.pico-sdk/openocd/0.12.0+dev/scripts",
@@ -47,11 +50,31 @@
                 "-f",
                 "target/${command:raspberry-pi-pico.getTarget}.cfg",
                 "-c",
-                "adapter speed 5000; program \"${command:raspberry-pi-pico.launchTargetPath}\" verify reset exit"
+                "adapter speed 5000; program \"${command:cmake.launchTargetPath}\" verify reset exit"
             ],
             "problemMatcher": [],
             "windows": {
-                "command": "${env:USERPROFILE}/.pico-sdk/openocd/0.12.0+dev/openocd.exe",
+                "command": "openocd"
+            }
+        },
+        {
+            "label": "Simulate",
+            "type": "shell",
+            "command": "renode",
+            "args": [
+                "-e",
+                "$ELF=@${command:cmake.launchTargetPath}; $WORKING=@${workspaceFolder}; include @${workspaceFolder}/simulate.resc"
+            ],
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated"
+            },
+            "problemMatcher": [],
+            "osx": {
+                "command": "/Applications/Renode.app/Contents/MacOS/macos_run.command",
+            },
+            "windows": {
+                "command": "${env:USERPROFILE}/Renode.exe"
             }
         }
     ]
