@@ -10,6 +10,10 @@ void setUp(void) {}
 
 void tearDown(void) {}
 
+/**
+ * Tests the blink loop to ensure count and on are correctly
+ * updating every loop through.
+ */
 void test_blink_loop()
 {
     int count = 0;
@@ -31,6 +35,9 @@ void test_blink_loop()
     }
 }
 
+/**
+ * Tests the main loop's switch case.
+ */
 void test_main_loop(void)
 {
     TEST_ASSERT_EQUAL('Z', main_loop('z'));
