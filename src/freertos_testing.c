@@ -10,7 +10,7 @@
 
 bool blink_loop(bool on,int *count){
     cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, on);
-    *count++;
+    *count += 1;
     if (*count % 11) on = !on;
     return on;
 }
