@@ -10,7 +10,23 @@ void tearDown(void) {}
 
 void test_blink_loop()
 {
+    int count = 0;
+    bool on = 0;
+    cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, on);
 
+    for(int i = 0; i < 100; i++){
+        int current_count = count;
+        bool next_on = blink_loop(on, &count);
+        int gpio = cyw43_arch_gpio_get(CYW43_WL_GPIO_LED_PIN);
+        TEST_ASSERT_EQUAL_MESSAGE(gpio, on, "GPIO should be set to the state of 'on' variable.");
+        TEST_ASSERT_EQUAL_MESSAGE(count, current_count + 1, "Count is incremented each iteration.");
+        if((i+1) % 11){
+            TEST_ASSERT_NOT_EQUAL_MESSAGE(next_on, on, "Should change when count is a multiple of 11.");
+        }else{
+            TEST_ASSERT_EQUAL_MESSAGE(next_on, on, "Should not change when count isn't a multiple of 11.");
+        }
+        on = next_on;
+    }
 }
 
 void test_main_loop(void)
