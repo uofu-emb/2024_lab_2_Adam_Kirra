@@ -3,6 +3,8 @@
 #include <stdint.h>
 #include <unity.h>
 #include "unity_config.h"
+#include "pico/cyw43_arch.h"
+#include "freertos_testing.h"
 
 void setUp(void) {}
 
